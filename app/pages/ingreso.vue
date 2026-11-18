@@ -48,7 +48,7 @@ const onFormSubmit = async (event) => {
                 >
                     <div class="flex flex-col gap-4 w-full">
 
-                        <p class="text-sm">Ingrese los siguientes datos.</p>
+                        <p class="text-sm">Bienvenido funcionario, ingrese sus datos.</p>
 
                         <FormField v-slot="$field" name="correo" initialValue="">
                             <Label for="correo">* Correo electrónico</Label>
