@@ -84,7 +84,7 @@ const onFormSubmit = async (event) => {
 
                         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-2">
                             <span class="text-xs text-gray-500">
-                                Los campos con * son obligatorios.
+                                los campos con * son obligatorios.
                             </span>
 
                             <Button type="submit" severity="secondary" class="w-full sm:w-auto">
