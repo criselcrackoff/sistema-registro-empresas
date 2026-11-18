@@ -142,7 +142,7 @@ const onFormSubmit = async (event) => {
                             <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">
                                 {{ $field.error?.message }}</Message>
                         </FormField>
-                        <span class="md:col-span-5" style="font-size: 12px;">las preguntas con * son obligatorias</span>
+                        <span class="md:col-span-5" style="font-size: 12px;">los campos con * son obligatorios.</span>
                         <Button type="submit" severity="secondary" class="md:col-span-1">Enviar</Button>
                     </div>
                 </Form>
