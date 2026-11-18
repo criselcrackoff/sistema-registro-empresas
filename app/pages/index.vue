@@ -44,8 +44,9 @@ const fotoSeleccionada = ref(fotos[0]);
             <p class="text-gray-700">
                 Información
             </p>
-            <NuxtLink to="/empresas" class="rounded-lg bg-emerald-400 px-3 py-2 text-md font-medium font-bold
-                       text-gray-700 transition-colors duration-200 hover:bg-emerald-300 sm:px-4 sm:text-base w-100">
+            <NuxtLink to="/empresas" class="w-[170px] rounded-lg bg-emerald-400 px-3 py-2 text-md
+                text-center font-bold text-gray-700 transition-colors duration-200 hover:bg-emerald-300
+                sm:px-4 sm:text-base">
                 Registrar Empresa
             </NuxtLink>
         </section>
