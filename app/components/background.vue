@@ -13,7 +13,7 @@
     background: linear-gradient(
         to bottom,
         #FFFFFF 0px,
-        #DDDDDD 512px
+        #FFFFFF 512px
     );
 }
 </style>
