@@ -29,9 +29,9 @@
                     para formar parte de nuestra red de colaboradores.
                 </p>
 
-                <NuxtLink to="/empresas" class="w-[200px] h-[60px] mt-[4rem] rounded-lg bg-emerald-400 px-4 py-3
+                <NuxtLink to="/registro" class="w-[200px] h-[60px] mt-[4rem] rounded-lg bg-emerald-400 px-4 py-3
                     flex items-center justify-center text-center font-bold text-white text-lg
-                    transition-colors duration-200 hover:bg-emerald-300">
+                    transition-colors duration-200 hover:bg-emerald-500 hover:ring-2 ring-white">
                     Registrar Empresa
                 </NuxtLink>
 
