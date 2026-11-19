@@ -39,15 +39,15 @@ const cerrarSesion = async () => {
                 Contacto
             </NuxtLink>
 
-            <NuxtLink to="/empresas" class="rounded-lg bg-gray-200 px-3 py-2 text-sm font-medium
-                text-gray-700 transition-colors duration-200 hover:bg-gray-300 hover:ring-2 
-                ring-emerald-400 sm:px-4 sm:text-base">
+            <NuxtLink v-if="initialized && user" to="/empresas" class="rounded-lg bg-emerald-400 px-3 py-2 text-sm font-medium
+                text-gray-700 transition-colors duration-200 hover:bg-emerald-300 hover:ring-2 ring-emerald-600
+                sm:px-4 sm:text-base">
                 Empresas
             </NuxtLink>
 
             <NuxtLink v-if="initialized && !user" to="/ingreso" class="rounded-lg bg-emerald-400 
                 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 
-                hover:bg-emerald-300 hover:ring-2 ring-black sm:px-4 sm:text-base">
+                hover:bg-emerald-300 hover:ring-2 ring-emerald-600 sm:px-4 sm:text-base">
                 Ingreso Funcionario
             </NuxtLink>
 
