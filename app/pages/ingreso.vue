@@ -6,12 +6,16 @@ import { Form, FormField } from '@primevue/forms';
 const resolver = ({ values }) => {
     const errors = {};
 
+    // Validar correo
     if (!values.correo?.trim()) {
-        errors.correo = [{ message: 'El correo es obligatorio.' }];
+        errors.correo = [{ message: 'El correo está vacío.' }];
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.correo)) {
+        errors.correo = [{ message: 'Eso no es un correo.' }];
     }
 
-    if (!values.nombre?.trim()) {
-        errors.nombre = [{ message: 'La contraseña es obligatoria.' }];
+    // Validar contraseña
+    if (!values.contrasena?.trim()) {
+        errors.contrasena = [{ message: 'La contraseña está vacía.' }];
     }
 
     return {
@@ -24,6 +28,8 @@ const resolver = ({ values }) => {
 const onFormSubmit = async (event) => {
     if (event.valid) {
         console.log('Datos del formulario:', event.values);
+
+
     }
 };
 </script>
@@ -36,7 +42,7 @@ const onFormSubmit = async (event) => {
 
         <main class="flex-1 min-h-0 flex justify-center items-center p-4 md:p-6 overflow-y-auto">
             <div
-                class="w-full max-w-xl flex flex-col justify-center items-center p-6 md:p-8"
+                class="w-full max-w-xl flex flex-col justify-center items-center p-6 md:p-8 shadow-xl"
                 style="border-radius: 0.5rem; background-color: white;"
             >
                 <h2 class="font-bold text-xl mb-6">Ingreso Funcionario</h2>
@@ -50,6 +56,7 @@ const onFormSubmit = async (event) => {
 
                         <p class="text-sm">Bienvenido funcionario, ingrese sus datos.</p>
 
+                        <!-- Correo -->
                         <FormField v-slot="$field" name="correo" initialValue="">
                             <Label for="correo">* Correo electrónico</Label>
 
@@ -66,11 +73,12 @@ const onFormSubmit = async (event) => {
                             </Message>
                         </FormField>
 
-                        <FormField v-slot="$field" name="nombre" initialValue="">
-                            <Label for="nombre">* Contraseña</Label>
+                        <!-- Contraseña -->
+                        <FormField v-slot="$field" name="contrasena" initialValue="">
+                            <Label for="contrasena">* Contraseña</Label>
 
                             <InputText
-                                id="nombre"
+                                id="contrasena"
                                 v-bind="$field.props"
                                 type="password"
                                 placeholder="Ingrese su contraseña"
@@ -84,7 +92,7 @@ const onFormSubmit = async (event) => {
 
                         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-2">
                             <span class="text-xs text-gray-500">
-                                los campos con * son obligatorios.
+                                Los campos con * son obligatorios.
                             </span>
 
                             <Button type="submit" severity="secondary" class="w-full sm:w-auto">
