@@ -14,11 +14,10 @@ export const useAuth = () => {
         }
 
         user.value = session?.user ?? null;
-        initialized.value = true;
 
-        supabase.auth.onAuthStateChange((_event, session) => {
-            user.value = session?.user ?? null;
-        });
+        supabase.auth.onAuthStateChange((_event, session) => { user.value = session?.user ?? null; });
+
+        initialized.value = true;
     };
 
     const logout = async () => {
@@ -30,7 +29,8 @@ export const useAuth = () => {
         }
 
         user.value = null;
-        await navigateTo('/ingreso');
+
+        await navigateTo('/');
 
         return true;
     };
