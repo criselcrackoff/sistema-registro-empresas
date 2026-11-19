@@ -65,12 +65,6 @@ const onFormSubmit = async (event) => {
         const { data, error } = await supabase
             .from('test')
             .insert(event.values);
-
-        if (error) {
-            console.error('Error al insertas empresa:', error.message);
-        } else {
-            console.log('Empresas registradas:', data);
-        }
     }
 };
 </script>
