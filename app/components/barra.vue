@@ -58,7 +58,7 @@
     background: linear-gradient(
         to bottom,
         white,
-        #DDDDDD
+        #CCCCCC
     );
 }
 </style>
