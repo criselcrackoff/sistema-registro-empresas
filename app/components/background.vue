@@ -12,8 +12,8 @@
 
     background: linear-gradient(
         to bottom,
-        #136499 0px,
-        #022A61 512px
+        #FFFFFF 0px,
+        #DDDDDD 512px
     );
 }
 </style>
