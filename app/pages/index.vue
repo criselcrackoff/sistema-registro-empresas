@@ -11,8 +11,7 @@
 
 
         <section class="relative flex flex-col items-center justify-center gap-6
-           min-h-[450px] rounded-xl shadow-xl p-8
-           bg-[url('/img/liceo1.jpg')] bg-no-repeat bg-cover bg-center
+           min-h-[450px] rounded-xl shadow-xl p-8 bg-[url('/img/liceo1.jpg')] bg-no-repeat bg-cover bg-center
            text-center overflow-hidden">
             <!-- Capa oscura sobre la imagen -->
             <div class="absolute inset-0 bg-black/50"></div>
@@ -38,5 +37,44 @@
             </div>
         </section>
 
+        <h1 class="text-center md:text-3xl text-xl font-bold">Nuestras especialidades</h1>
+
+        <div class="w-full max-w flex flex-col md:mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 justify-center items-center md:text-md">
+
+                <div class="flex md:col-span-2 h-fit px-4 py-3 items-center"
+                    style="border-radius: 0.5rem; background-color: #EAEAEA;">
+                    <div class="bg-[url('/img/liceo1.jpg')] bg-cover bg-center rounded-full
+                        w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24
+                        shrink-0 mr-4">
+                    </div>
+                    <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                        Contabilidad
+                    </h1>
+                </div>
+
+                <div class="flex md:col-span-2 h-fit px-4 py-3 items-center"
+                    style="border-radius: 0.5rem; background-color: #EAEAEA;">
+                    <div class="bg-[url('/img/liceo1.jpg')] bg-cover bg-center rounded-full
+                        w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24
+                        shrink-0 mr-4">
+                    </div>
+                    <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                        Administración
+                    </h1>
+                </div>
+
+                <div class="flex md:col-span-2 h-fit px-4 py-3 items-center"
+                    style="border-radius: 0.5rem; background-color: #EAEAEA;">
+                    <div class="bg-[url('/img/liceo1.jpg')] bg-cover bg-center rounded-full
+                        w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 lg:w-24 lg:h-24
+                        shrink-0 mr-4">
+                    </div>
+                    <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                        Programación
+                    </h1>
+                </div>
+            </div>
+        </div>
     </main>
 </template>
