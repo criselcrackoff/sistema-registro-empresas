@@ -21,6 +21,10 @@ const resolver = ({ values }) => {
         errors.nombre = [{ message: 'El nombre es obligatorio.' }];
     }
 
+    if (!values.representante?.trim()) {
+        errors.representante = [{ message: 'El representante legal es obligatorio.' }];
+    }
+
     if (!values.calle?.trim()) {
         errors.calle = [{ message: 'El nombre de la calle es obligatoria.' }];
     }
@@ -101,14 +105,21 @@ const onFormSubmit = async (event) => {
                                 {{ $field.error?.message }}</Message>
                         </FormField>
 
-                        <FormField v-slot="$field" name="calle" initialValue="" class="md:col-span-3">
+                        <FormField v-slot="$field" name="representante" initialValue="" class="md:col-span-2">
+                            <Label for="representante">* Nombre de representante legal</Label>
+                            <InputText id="representante" placeholder="Representante legal" class="w-full" />
+                            <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">
+                                {{ $field.error?.message }}</Message>
+                        </FormField>
+
+                        <FormField v-slot="$field" name="calle" initialValue="" class="md:col-span-2">
                             <Label for="calle">* Ingrese nombre de calle</Label>
                             <InputText id="calle" placeholder="Nombre de calle" class="w-full" />
                             <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">
                                 {{ $field.error?.message }}</Message>
                         </FormField>
 
-                        <FormField v-slot="$field" name="n_direccion" initialValue="" class="md:col-span-3">
+                        <FormField v-slot="$field" name="n_direccion" initialValue="" class="md:col-span-2">
                             <Label for="n_direccion">* Ingrese su n° de dirección</Label>
                             <InputText id="n_direccion" placeholder="Número de dirección" class="w-full" />
                             <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">
@@ -116,7 +127,7 @@ const onFormSubmit = async (event) => {
                         </FormField>
 
                         <FormField v-slot="$field" name="sector" initialValue="" class="md:col-span-2">
-                            <Label for="sector">Sector, población o villa</Label>
+                            <Label for="sector">* Sector, población o villa</Label>
                             <InputText id="sector" placeholder="Sector, población o villa" class="w-full" />
                             <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">
                                 {{ $field.error?.message }}</Message>
