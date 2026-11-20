@@ -76,13 +76,13 @@ const onFormSubmit = async (event) => {
         <Barra />
         <main class="flex-1 min-h-0 flex justify-center items-center p-4 md:p-6 overflow-y-auto">
             <div
-                class="w-full max-w-3xl flex flex-col justify-center items-center p-6 md:p-8 shadow-xl"
+                class="w-full max-w-5xl flex flex-col justify-center items-center p-6 md:p-8 shadow-xl"
                 style="border-radius: 0.5rem; background-color: #EAEAEA;"
             >
-                <h2 class="font-bold text-xl mb-6">Registro Empresas</h2>
+                <h2 class="font-bold text-xl mb-6 md:mb-0">Registro Empresas</h2>
                 <Form :resolver="resolver" @submit="onFormSubmit"
                     class="flex flex-col gap-3 w-full">
-                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 flex justify-center items-center">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 flex justify-center items-center md:p-8">
                         <p class="text-sm md:col-start-1 md:col-span-6">Ingrese los siguientes datos.</p>
 
                         <FormField v-slot="$field" name="rut" initialValue="" class="md:col-span-3">
