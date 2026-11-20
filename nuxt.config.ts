@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css','primeicons/primeicons.css'],
 
   primevue: {
     options: {
