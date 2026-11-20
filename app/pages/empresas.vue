@@ -258,8 +258,7 @@ onMounted(async () => {
                                                 :aria-expanded="opcionesAbiertas === empresa.id">
                                                 <i class="pi pi-cog"></i>
                                             </button>
-
-                                            <!-- Menú desplegable -->
+                                            
                                             <div v-if="opcionesAbiertas === empresa.id" class="absolute right-0 top-full mt-2 z-20 w-48
                                                 bg-white rounded-lg shadow-xl border border-gray-200 p-2 flex">
                                                 <p>Estado actual: </p>
@@ -307,12 +306,12 @@ onMounted(async () => {
                             <div class="flex flex-wrap gap-1">
                                 <button @click="abrirFormulario(empresa)"
                                     class="w-full flex items-center gap-2 px-3 py-2
-                                text-sm text-gray-700 bg-gray-200 rounded-xl hover:bg-gray-300 transition  min-w-[190px] md:max-w-[49.2%] md:min-w-[40%]">
+                                text-sm text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-300 transition  min-w-[190px] md:max-w-[49.2%] md:min-w-[40%] border border-gray-200">
                                     <i class="pi pi-plus"></i>
                                     Agregar un registro
                                 </button>
                                 <button @click="abrirRegistros(empresa)" class="w-full flex items-center gap-2 px-3 py-2
-                                    text-sm text-gray-700 bg-gray-200 rounded-xl hover:bg-gray-300 transition min-w-[190px]
+                                    text-sm text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-300 transition min-w-[190px] border border-gray-200
                                     md:max-w-[49.2%] md:min-w-[40%]">
                                     <i class="pi pi-address-book"></i>
                                     Ver registros
