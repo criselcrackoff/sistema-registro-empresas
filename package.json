@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^2.119.0",
     "@tailwindcss/vite": "^4.3.5",
     "nuxt": "^4.6.4",
+    "primeicons": "^8.0.2",
     "primevue": "^5.0.5",
     "tailwindcss": "^4.3.5",
     "vue": "^3.5.45",
