@@ -19,6 +19,51 @@ const enviando = ref(false);
 const mensajeEnvio = ref('');
 const errorEnvio = ref(null);
 
+// Panel lateral de registros
+const mostrarRegistros = ref(false);
+const empresaRegistrosSeleccionada = ref(null);
+
+const registrosEmpresa = ref([]);
+const cargandoRegistros = ref(false);
+const errorRegistros = ref(null);
+
+// Abrir panel y obtener registros de una empresa
+const abrirRegistros = async (empresa) => {
+    empresaRegistrosSeleccionada.value = empresa;
+    mostrarRegistros.value = true;
+
+    registrosEmpresa.value = [];
+    errorRegistros.value = null;
+    cargandoRegistros.value = true;
+
+    console.log('Empresa seleccionada:', empresa.nombre);
+
+    const { data, error } = await supabase
+        .from('registro-contactos-test')
+        .select('*')
+        .eq('nombre_empresa', empresa.nombre);
+
+    console.log('Datos obtenidos:', data);
+    console.log('Error de Supabase:', error);
+
+    if (error) {
+        console.error('Error obteniendo registros:', error);
+        errorRegistros.value = error.message;
+    } else {
+        registrosEmpresa.value = data ?? [];
+    }
+
+    cargandoRegistros.value = false;
+};
+
+// Cerrar panel
+const cerrarRegistros = () => {
+    mostrarRegistros.value = false;
+    empresaRegistrosSeleccionada.value = null;
+    registrosEmpresa.value = [];
+    errorRegistros.value = null;
+};
+
 const obtenerEmpresas = async () => {
     cargando.value = true;
     errorConsulta.value = null;
@@ -190,7 +235,7 @@ onMounted(async () => {
 
                         <!-- Contenido de la tarjeta -->
                         <div class="p-5">
-
+                            <!-- Top de la tarjeta -->
                             <div class="flex justify-between items-center gap-4">
 
                                 <h2 class="text-xl font-bold mb-3">
@@ -211,17 +256,19 @@ onMounted(async () => {
                                                 class="p-2 rounded-lg hover:bg-gray-300 transition border border-gray-200 shadow-md"
                                                 aria-label="Opciones de empresa"
                                                 :aria-expanded="opcionesAbiertas === empresa.id">
-                                                <i class="pi pi-ellipsis-v"></i>
+                                                <i class="pi pi-cog"></i>
                                             </button>
 
                                             <!-- Menú desplegable -->
                                             <div v-if="opcionesAbiertas === empresa.id" class="absolute right-0 top-full mt-2 z-20 w-48
-                                                bg-white rounded-lg shadow-xl border border-gray-200 p-2">
-                                                <button @click="abrirFormulario(empresa)" class="w-full flex items-center gap-2 px-3 py-2
-                                                    text-sm text-gray-700 rounded-md hover:bg-gray-100 transition">
-                                                    <i class="pi pi-address-book"></i>
-                                                    Registro de contacto
-                                                </button>
+                                                bg-white rounded-lg shadow-xl border border-gray-200 p-2 flex">
+                                                <p>Estado actual: </p>
+                                                <p class="ml-2 rounded-full p-[2px] px-[4px] text-xs font-bold" :class="{
+                                                    'bg-green-200 text-green-800 border border-green-800': empresa.estado?.toLowerCase() === 'activa',
+                                                    'bg-yellow-200 text-yellow-800 border border-yellow-800': empresa.estado?.toLowerCase() === 'contactada',
+                                                    'bg-red-200 text-red-800 border border-red-800': !['activa', 'contactada'].includes(empresa.estado?.toLowerCase())
+                                                }"> {{ empresa.estado || 'Inactiva' }} </p>
+
                                             </div>
                                         </div>
 
@@ -229,9 +276,8 @@ onMounted(async () => {
                                 </div>
 
                             </div>
-
+                            <!-- Medio de la tarjeta -->
                             <div class="mt-3">
-                                <!-- Calle y número juntos -->
                                 <div class="text-sm text-gray-600 mb-2">
                                     <span class="font-semibold text-gray-800">
                                         Dirección:
@@ -256,6 +302,21 @@ onMounted(async () => {
 
                                 </div>
 
+                            </div>
+                            <!-- Footer de la tarjeta -->
+                            <div class="flex flex-wrap gap-1">
+                                <button @click="abrirFormulario(empresa)"
+                                    class="w-full flex items-center gap-2 px-3 py-2
+                                text-sm text-gray-700 bg-gray-200 rounded-xl hover:bg-gray-300 transition  min-w-[190px] md:max-w-[49.2%] md:min-w-[40%]">
+                                    <i class="pi pi-plus"></i>
+                                    Agregar un registro
+                                </button>
+                                <button @click="abrirRegistros(empresa)" class="w-full flex items-center gap-2 px-3 py-2
+                                    text-sm text-gray-700 bg-gray-200 rounded-xl hover:bg-gray-300 transition min-w-[190px]
+                                    md:max-w-[49.2%] md:min-w-[40%]">
+                                    <i class="pi pi-address-book"></i>
+                                    Ver registros
+                                </button>
                             </div>
 
                         </div>
@@ -347,6 +408,105 @@ onMounted(async () => {
                     </Transition>
                 </Teleport>
 
+
+                <!-- Panel lateral de registros -->
+                <Teleport to="body">
+                    <Transition name="drawer">
+                        <div v-if="mostrarRegistros && empresaRegistrosSeleccionada"
+                            class="fixed inset-0 z-[9998] flex justify-end">
+                            <!-- Fondo oscuro -->
+                            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="cerrarRegistros"></div>
+
+                            <!-- Panel lateral -->
+                            <aside class="drawer-panel relative z-10 flex flex-col
+                w-full max-w-xl h-full bg-white shadow-2xl">
+                                <!-- Encabezado -->
+                                <div class="flex justify-between items-center gap-4
+                    p-6 border-b border-gray-200 bg-gray-50">
+
+                                    <div>
+                                        <h2 class="text-xl font-bold text-gray-800">
+                                            Registros de contacto
+                                        </h2>
+
+                                        <p class="text-sm text-gray-500 mt-1">
+                                            {{ empresaRegistrosSeleccionada.nombre }}
+                                        </p>
+                                    </div>
+
+                                    <button @click="cerrarRegistros" class="p-2 rounded-lg hover:bg-gray-200 transition"
+                                        aria-label="Cerrar registros">
+                                        <i class="pi pi-times text-lg"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Contenido -->
+                                <div class="flex-1 overflow-y-auto p-6">
+
+                                    <!-- Cargando -->
+                                    <div v-if="cargandoRegistros" class="flex flex-col items-center justify-center
+                        py-16 text-gray-500">
+                                        <i class="pi pi-spin pi-spinner text-3xl mb-4"></i>
+                                        <p>Obteniendo registros...</p>
+                                    </div>
+
+                                    <!-- Error -->
+                                    <div v-else-if="errorRegistros" class="p-4 rounded-lg bg-red-100 text-red-700">
+                                        <i class="pi pi-exclamation-circle mr-2"></i>
+                                        Error al obtener registros: {{ errorRegistros }}
+                                    </div>
+
+                                    <!-- Sin registros -->
+                                    <div v-else-if="registrosEmpresa.length === 0" class="flex flex-col items-center justify-center
+                        py-16 text-center text-gray-500">
+                                        <i class="pi pi-inbox text-5xl mb-4"></i>
+
+                                        <h3 class="font-semibold text-lg">
+                                            No hay registros
+                                        </h3>
+
+                                        <p class="text-sm mt-2">
+                                            Esta empresa todavía no tiene contactos registrados.
+                                        </p>
+                                    </div>
+
+                                    <!-- Lista de registros -->
+                                    <div v-else class="flex flex-col gap-4">
+
+                                        <div v-for="(registro, index) in registrosEmpresa" :key="registro.id ?? index"
+                                            class="p-5 rounded-xl border border-gray-200
+                            shadow-sm bg-gray-50">
+                                            <div class="flex justify-between items-center mb-3">
+                                                <h3 class="font-bold text-gray-800">
+                                                    Registro #{{ index + 1 }}
+                                                </h3>
+
+                                                <span class="text-xs text-gray-500">
+                                                    Contacto
+                                                </span>
+                                            </div>
+
+                                            <p class="text-sm text-gray-700 whitespace-pre-wrap">
+                                                {{ registro.descripcion }}
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Pie -->
+                                <div class="p-4 border-t border-gray-200 bg-gray-50">
+                                    <p class="text-sm text-gray-500">
+                                        Total de registros:
+                                        <strong>{{ registrosEmpresa.length }}</strong>
+                                    </p>
+                                </div>
+                            </aside>
+                        </div>
+                    </Transition>
+                </Teleport>
+
+
             </div>
         </section>
     </main>
@@ -361,5 +521,26 @@ onMounted(async () => {
 .modal-enter-from,
 .modal-leave-to {
     opacity: 0;
+}
+
+.drawer-enter-active,
+.drawer-leave-active {
+    transition: opacity 0.25s ease;
+}
+
+.drawer-enter-from,
+.drawer-leave-to {
+    opacity: 0;
+}
+
+/* Deslizamiento del panel */
+.drawer-enter-active .drawer-panel,
+.drawer-leave-active .drawer-panel {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer-enter-from .drawer-panel,
+.drawer-leave-to .drawer-panel {
+    transform: translateX(100%);
 }
 </style>
