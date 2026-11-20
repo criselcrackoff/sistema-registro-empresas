@@ -30,7 +30,7 @@
 
                 <NuxtLink to="/registro" class="w-[200px] h-[60px] mt-[4rem] rounded-lg bg-emerald-400 px-4 py-3
                     flex items-center justify-center text-center font-bold text-white text-lg
-                    transition-colors duration-200 hover:bg-emerald-500 hover:ring-2 ring-white">
+                    transition-colors duration-200 hover:bg-emerald-500 hover:ring-2 ring-white border border-emerald-700">
                     Registrar Empresa
                 </NuxtLink>
 
@@ -42,7 +42,7 @@
         <div class="w-full max-w flex flex-col md:mt-4">
             <div class="grid grid-cols-1 md:grid-cols-6 gap-3 justify-center items-center md:text-md">
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo2.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24
@@ -53,7 +53,7 @@
                     </h1>
                 </div>
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo3.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24
@@ -64,7 +64,7 @@
                     </h1>
                 </div>
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo4.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24

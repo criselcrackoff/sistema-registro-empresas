@@ -31,14 +31,14 @@ const cerrarSesion = async () => {
             <NuxtLink to="/" class="rounded-lg bg-gray-200 px-3 py-2 text-sm font-medium
                        text-gray-700 transition-colors duration-200
                        hover:bg-gray-300 hover:ring-2 ring-emerald-400
-                       sm:px-4 sm:text-base">
+                       sm:px-4 sm:text-base border border-gray-300 shadow-md">
                 Inicio
             </NuxtLink>
 
             <NuxtLink to="/contacto" class="rounded-lg bg-gray-200 px-3 py-2 text-sm font-medium
                        text-gray-700 transition-colors duration-200
                        hover:bg-gray-300 hover:ring-2 ring-emerald-400
-                       sm:px-4 sm:text-base">
+                       sm:px-4 sm:text-base border border-gray-300 shadow-md">
                 Contacto
             </NuxtLink>
 
@@ -49,14 +49,14 @@ const cerrarSesion = async () => {
             <template v-else-if="user">
                 <NuxtLink to="/empresas" class="rounded-lg bg-emerald-400 px-3 py-2 text-sm font-medium
                     text-gray-700 transition-colors duration-200 hover:bg-emerald-300 hover:ring-2 ring-emerald-600
-                    sm:px-4 sm:text-base">
+                    sm:px-4 sm:text-base border border-emerald-500 shadow-md">
                     Empresas
                 </NuxtLink>
 
                 <div class="relative">
                     <button type="button" @click="showMenu = !showMenu" :title="user.email" class="flex h-11 w-11 items-center justify-center
                         rounded-full bg-emerald-400 text-lg font-bold text-white shadow-md transition-all duration-200
-                        hover:bg-emerald-300 hover:ring-2 hover:ring-emerald-600">
+                        hover:bg-emerald-300 hover:ring-2 hover:ring-emerald-600 border border-emerald-500">
                         {{ avatarLetter }}
                     </button>
 
@@ -79,8 +79,8 @@ const cerrarSesion = async () => {
             </template>
 
             <NuxtLink v-else to="/ingreso" class="rounded-lg bg-emerald-400
-                px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200
-                hover:bg-emerald-300 hover:ring-2 ring-emerald-600 sm:px-4 sm:text-base">
+                px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 shadow-md
+                hover:bg-emerald-300 hover:ring-2 ring-emerald-600 sm:px-4 sm:text-base border border-emerald-500">
                 Ingreso Funcionario
             </NuxtLink>
 
