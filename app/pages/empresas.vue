@@ -1,4 +1,4 @@
-    <script setup>
+<script setup>
     import { Form, FormField } from '@primevue/forms';
 
     const supabase = useSupabase();
@@ -217,7 +217,7 @@
 
         await obtenerEmpresas();
     });
-    </script>
+</script>
 
 
     <template>
@@ -247,7 +247,7 @@
                         </div>
                     </div>
 
-                    <div v-if="cargando"
+                    <div v-if="cargando" 
                         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 
                         <div v-for="n in 6" :key="n"
@@ -279,16 +279,20 @@
                         No hay empresas registradas.
                     </div>
 
-                    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                    <div v-else
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
 
                         <div v-for="(empresa, index) in empresas" :key="empresa.id ?? index"
-                            class="rounded-xl shadow-xl border border-gray-200 min-w-0 break-words overflow-hidden" :class="{
-                                'bg-[#D6D6D6]': empresa.estado?.toLowerCase() !== 'activo'
+                            class="rounded-xl shadow-xl border border-gray-200 min-w-0 break-words overflow-hidden"
+                            :class="{
+                                'bg-gray-300': empresa.estado?.toLowerCase() !== 'activo',
+                                'bg-white': empresa.estado?.toLowerCase() === 'contactado'
                             }">
 
                             <!-- Barra superior según el estado -->
                             <div class="h-2 w-full" :class="{
                                 'bg-green-500': empresa.estado?.toLowerCase() === 'activo',
+                                'bg-yellow-400': empresa.estado?.toLowerCase() === 'contactado',
                                 'bg-red-500': empresa.estado?.toLowerCase() === 'inactivo'
                             }"></div>
 
@@ -305,6 +309,9 @@
                                             'bg-green-200 text-green-800 border border-green-800':
                                                 empresa.estado?.toLowerCase() === 'activo',
 
+                                            'bg-yellow-200 text-yellow-800 border border-yellow-800':
+                                                empresa.estado?.toLowerCase() === 'contactado',
+
                                             'bg-red-200 text-red-800 border border-red-800':
                                                 empresa.estado?.toLowerCase() === 'inactivo'
                                         }">
@@ -314,9 +321,11 @@
 
                                             <div class="relative">
                                                 <button @click="alternarOpciones(empresa.id)"
-                                                    class="p-2 rounded-lg hover:bg-gray-300 transition border border-gray-200 shadow-md"
-                                                    aria-label="Opciones de empresa"
-                                                    :aria-expanded="opcionesAbiertas === empresa.id">
+                                                    class="shadow-md border p-2 rounded-lg hover:bg-gray-300 transition border-gray-200"
+                                                    aria-label="Opciones de empresa" :class="{
+                                                        'p-2 rounded-lg hover:bg-gray-400 hover:text-gray-50  transition border-gray-600':
+                                                            empresa.estado?.toLowerCase() === 'inactivo'
+                                                    }" :aria-expanded="opcionesAbiertas === empresa.id">
                                                     <i class="pi pi-cog"></i>
                                                 </button>
 
@@ -329,10 +338,13 @@
                                                     </p>
 
                                                     <div class="mb-3">
-                                                        <span class="inline-flex text-xs font-bold px-3 py-1 rounded-full"
+                                                        <span
+                                                            class="inline-flex text-xs font-bold px-3 py-1 rounded-full"
                                                             :class="{
                                                                 'bg-green-200 text-green-800 border border-green-800':
                                                                     empresa.estado?.toLowerCase() === 'activo',
+                                                                'bg-yellow-200 text-yellow-800 border border-yellow-800':
+                                                                    empresa.estado?.toLowerCase() === 'contactado',
                                                                 'bg-red-200 text-red-800 border border-red-800':
                                                                     empresa.estado?.toLowerCase() === 'inactivo'
                                                             }">
@@ -357,6 +369,21 @@
                                                             <span>Activo</span>
 
                                                             <i v-if="empresa.estado?.toLowerCase() === 'Activo'"
+                                                                class="pi pi-check ml-auto">
+                                                            </i>
+                                                        </button>
+
+                                                        <!-- Estado contactado -->
+                                                        <button @click="actualizarEstado(empresa, 'Contactado')"
+                                                            :disabled="actualizandoEstadoId === empresa.id" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg
+                                                            text-sm font-medium transition hover:bg-yellow-100 text-yellow-700
+                                                            disabled:opacity-50 disabled:cursor-not-allowed">
+
+                                                            <i class="pi pi-comment"></i>
+
+                                                            <span>Contactado</span>
+
+                                                            <i v-if="empresa.estado?.toLowerCase() === 'contactado'"
                                                                 class="pi pi-check ml-auto">
                                                             </i>
                                                         </button>
@@ -415,7 +442,8 @@
                                             !['id', 'fecha_creacion', 'estado', 'calle', 'n_direccion'].includes(campo)
                                         " class="text-sm text-gray-600 mb-2">
 
-                                            <span class="font-semibold text-gray-800" style="text-transform: capitalize;">
+                                            <span class="font-semibold text-gray-800"
+                                                style="text-transform: capitalize;">
                                                 {{ campo }}:
                                             </span>
 
@@ -429,13 +457,22 @@
                                 <div class="flex flex-wrap gap-1">
                                     <button @click="abrirFormulario(empresa)"
                                         class="w-full flex items-center gap-2 px-3 py-2
-                                    text-sm text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-300 transition  min-w-[190px] md:max-w-[49.2%] md:min-w-[40%] border border-gray-200">
+                                        text-sm text-gray-700 rounded-xl transition  min-w-[190px] md:max-w-[49.2%] md:min-w-[40%] 
+                                        border bg-gray-100 border-gray-300 hover:bg-gray-200"
+                                        :class="{
+                                            'bg-gray-200 border-gray-400 hover:bg-gray-300':
+                                                empresa.estado?.toLowerCase() === 'inactivo'
+                                        }" :aria-expanded="opcionesAbiertas === empresa.id">
                                         <i class="pi pi-plus"></i>
                                         Agregar un registro
                                     </button>
                                     <button @click="abrirRegistros(empresa)" class="w-full flex items-center gap-2 px-3 py-2
-                                        text-sm text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-300 transition min-w-[190px] border border-gray-200
-                                        md:max-w-[49.2%] md:min-w-[40%]">
+                                        text-sm text-gray-700 rounded-xl transition min-w-[190px] border
+                                        md:max-w-[49.2%] md:min-w-[40%] bg-gray-100 border-gray-300 hover:bg-gray-200"
+                                        :class="{
+                                            'bg-gray-200 border-gray-400 hover:bg-gray-300':
+                                                empresa.estado?.toLowerCase() === 'inactivo'
+                                        }" :aria-expanded="opcionesAbiertas === empresa.id">
                                         <i class="pi pi-address-book"></i>
                                         Ver registros
                                     </button>
@@ -458,7 +495,8 @@
                                 class="fixed inset-0 z-[9999] flex items-center justify-center p-4"
                                 @click.self="cerrarFormulario">
                                 <!-- Fondo oscuro -->
-                                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="cerrarFormulario"></div>
+                                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="cerrarFormulario">
+                                </div>
 
                                 <!-- Contenedor del formulario -->
                                 <section class="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto
@@ -501,7 +539,8 @@
                                                 placeholder="Escribe una descripción del contacto..." class="w-full"
                                                 rows="6" autoResize />
 
-                                            <Message v-if="$field.invalid" severity="error" size="small" variant="simple">
+                                            <Message v-if="$field.invalid" severity="error" size="small"
+                                                variant="simple">
                                                 {{ $field.error?.message }}
                                             </Message>
                                         </FormField>
@@ -542,7 +581,8 @@
                             <div v-if="mostrarRegistros && empresaRegistrosSeleccionada"
                                 class="fixed inset-0 z-[9998] flex justify-end">
                                 <!-- Fondo oscuro -->
-                                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="cerrarRegistros"></div>
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="cerrarRegistros">
+                                </div>
 
                                 <!-- Panel lateral -->
                                 <aside class="drawer-panel relative z-10 flex flex-col
@@ -561,7 +601,8 @@
                                             </p>
                                         </div>
 
-                                        <button @click="cerrarRegistros" class="p-2 rounded-lg hover:bg-gray-200 transition"
+                                        <button @click="cerrarRegistros"
+                                            class="p-2 rounded-lg hover:bg-gray-200 transition"
                                             aria-label="Cerrar registros">
                                             <i class="pi pi-times text-lg"></i>
                                         </button>
@@ -600,8 +641,8 @@
                                         <!-- Lista de registros -->
                                         <div v-else class="flex flex-col gap-4">
 
-                                            <div v-for="(registro, index) in registrosEmpresa" :key="registro.id ?? index"
-                                                class="p-5 rounded-xl border border-gray-200
+                                            <div v-for="(registro, index) in registrosEmpresa"
+                                                :key="registro.id ?? index" class="p-5 rounded-xl border border-gray-200
                                 shadow-sm bg-gray-50">
                                                 <div class="flex justify-between items-center mb-3">
                                                     <h3 class="font-bold text-gray-800">
@@ -639,35 +680,35 @@
         </main>
     </template>
 
-    <style scoped>
-    .modal-enter-active,
-    .modal-leave-active {
-        transition: opacity 0.2s ease;
-    }
+<style scoped>
+.modal-enter-active,
+.modal-leave-active {
+    transition: opacity 0.2s ease;
+}
 
-    .modal-enter-from,
-    .modal-leave-to {
-        opacity: 0;
-    }
+.modal-enter-from,
+.modal-leave-to {
+    opacity: 0;
+}
 
-    .drawer-enter-active,
-    .drawer-leave-active {
-        transition: opacity 0.25s ease;
-    }
+.drawer-enter-active,
+.drawer-leave-active {
+    transition: opacity 0.25s ease;
+}
 
-    .drawer-enter-from,
-    .drawer-leave-to {
-        opacity: 0;
-    }
+.drawer-enter-from,
+.drawer-leave-to {
+    opacity: 0;
+}
 
-    /* Deslizamiento del panel */
-    .drawer-enter-active .drawer-panel,
-    .drawer-leave-active .drawer-panel {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+/* Deslizamiento del panel */
+.drawer-enter-active .drawer-panel,
+.drawer-leave-active .drawer-panel {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    .drawer-enter-from .drawer-panel,
-    .drawer-leave-to .drawer-panel {
-        transform: translateX(100%);
-    }
-    </style>
+.drawer-enter-from .drawer-panel,
+.drawer-leave-to .drawer-panel {
+    transform: translateX(100%);
+}
+</style>
