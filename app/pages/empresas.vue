@@ -31,6 +31,55 @@
     const cargandoRegistros = ref(false);
     const errorRegistros = ref(null);
 
+    // Control del modal de confirmación
+const mostrarConfirmacion = ref(false);
+const tituloConfirmacion = ref('');
+const mensajeConfirmacion = ref('');
+const textoConfirmacion = ref('Sí, continuar');
+
+const accionConfirmada = ref(null);
+const procesandoConfirmacion = ref(false);
+
+// Solicitar confirmación antes de ejecutar una acción
+const solicitarConfirmacion = ({
+    titulo,
+    mensaje,
+    accion,
+    texto = 'Sí, continuar'
+}) => {
+    tituloConfirmacion.value = titulo;
+    mensajeConfirmacion.value = mensaje;
+    textoConfirmacion.value = texto;
+    accionConfirmada.value = accion;
+
+    mostrarConfirmacion.value = true;
+};
+
+// Cancelar confirmación
+const cancelarConfirmacion = () => {
+    if (procesandoConfirmacion.value) return;
+
+    mostrarConfirmacion.value = false;
+    accionConfirmada.value = null;
+};
+
+// Ejecutar acción confirmada
+const confirmarAccion = async () => {
+    if (!accionConfirmada.value || procesandoConfirmacion.value) return;
+
+    procesandoConfirmacion.value = true;
+
+    try {
+        await accionConfirmada.value();
+        mostrarConfirmacion.value = false;
+        accionConfirmada.value = null;
+    } catch (error) {
+        console.error('Error ejecutando acción:', error);
+    } finally {
+        procesandoConfirmacion.value = false;
+    }
+};
+
     // Abrir panel y obtener registros de una empresa
     const abrirRegistros = async (empresa) => {
         empresaRegistrosSeleccionada.value = empresa;
@@ -173,7 +222,7 @@
 
         if (!values.descripcion?.trim()) {
             errors.descripcion = [
-                { message: 'Dé una descripción del contacto.' }
+                { message: 'Dé una descripción de la interacción.' }
             ];
         }
 
@@ -198,10 +247,10 @@
             .insert(datos);
 
         if (error) {
-            console.error('Error registrando contacto:', error);
+            console.error('Error registrando interacción:', error);
             errorEnvio.value = error.message;
         } else {
-            mensajeEnvio.value = 'Contacto registrado correctamente.';
+            mensajeEnvio.value = 'Interacción registrada correctamente.';
         }
 
         enviando.value = false;
@@ -536,7 +585,7 @@
                                             </Label>
 
                                             <Textarea id="descripcion" v-bind="$field.props"
-                                                placeholder="Escribe una descripción del contacto..." class="w-full"
+                                                placeholder="Escribe una descripción de la interacción..." class="w-full"
                                                 rows="6" autoResize />
 
                                             <Message v-if="$field.invalid" severity="error" size="small"
@@ -556,7 +605,7 @@
                                             <div class=" rounded-lg border border-emerald-600">
                                                 <Button class="" type="submit" severity="success" :loading="enviando"
                                                     :disabled="enviando">
-                                                    Registrar contacto
+                                                    Registrar interacción
                                                 </Button>
                                             </div>
                                         </div>
@@ -586,10 +635,10 @@
 
                                 <!-- Panel lateral -->
                                 <aside class="drawer-panel relative z-10 flex flex-col
-                    w-full max-w-xl h-full bg-white shadow-2xl">
+                                    w-full max-w-xl h-full bg-white shadow-2xl">
                                     <!-- Encabezado -->
                                     <div class="flex justify-between items-center gap-4
-                        p-6 border-b border-gray-200 bg-gray-50">
+                                        p-6 border-b border-gray-200 bg-gray-50">
 
                                         <div>
                                             <h2 class="text-xl font-bold text-gray-800">
@@ -634,7 +683,7 @@
                                             </h3>
 
                                             <p class="text-sm mt-2">
-                                                Esta empresa todavía no tiene contactos registrados.
+                                                Esta empresa todavía no tiene interacciones registradas.
                                             </p>
                                         </div>
 
@@ -648,15 +697,22 @@
                                                     <h3 class="font-bold text-gray-800">
                                                         Registro #{{ index + 1 }}
                                                     </h3>
-
-                                                    <span class="text-xs text-gray-500">
-                                                        Contacto
-                                                    </span>
+                                                    <div class="flex gap-2">
+                                                        <button class="flex gap-2 bg-gray-200 hover:bg-emerald-100 hover:border-emerald-100 px-2 py-1 rounded-full border border-gray-300 hover:ring-2 ring-emerald-200 duration-200">
+                                                            <i class="pi pi-file-edit"></i>
+                                                            <p class="text-xs">Editar</p>
+                                                        </button>
+                                                        <button class="flex gap-2 bg-gray-200 hover:bg-red-200 hover:border-red-200 px-2 py-1 rounded-full border border-gray-300 hover:ring-2 ring-red-300 duration-200">
+                                                            <i class="pi pi-trash"></i>
+                                                            <p class="text-xs">Borrar</p>
+                                                        </button>
+                                                    </div>
                                                 </div>
-
-                                                <p class="text-sm text-gray-700 whitespace-pre-wrap">
-                                                    {{ registro.descripcion }}
-                                                </p>
+                                                <div class="flex justify-between items-center">
+                                                    <p class="text-sm text-gray-700 whitespace-pre-wrap">
+                                                        {{ registro.descripcion }}
+                                                    </p>
+                                                </div>
                                             </div>
 
                                         </div>
