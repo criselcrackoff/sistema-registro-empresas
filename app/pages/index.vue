@@ -42,7 +42,7 @@
         <div class="w-full max-w flex flex-col md:mt-4">
             <div class="grid grid-cols-1 md:grid-cols-6 gap-3 justify-center items-center md:text-md">
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-102 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo2.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24
@@ -53,7 +53,7 @@
                     </h1>
                 </div>
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-102 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo3.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24
@@ -64,7 +64,7 @@
                     </h1>
                 </div>
 
-                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-101 duration-200 ease-out border border-gray-300"
+                <div class="flex flex-wrap md:col-span-2 h-fit px-4 py-3 items-center shadow-xl hover:scale-102 duration-200 ease-out border border-gray-300"
                     style="border-radius: 0.5rem; background-color: #EAEAEA;">
                     <div class="bg-[url('/img/liceo4.jpg')] bg-cover bg-center rounded-full
                         w-12 h-12 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-24 lg:h-24
