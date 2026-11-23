@@ -113,6 +113,7 @@ const onFormSubmit = async (event) => {
 
                             <Button type="submit" severity="secondary" :loading="isLoading" :disabled="isLoading"
                                 class="w-full sm:w-auto hover:ring-2 ring-emerald-400">
+                                <i class="pi pi-sign-in"></i>
                                 Entrar
                             </Button>
                         </div>

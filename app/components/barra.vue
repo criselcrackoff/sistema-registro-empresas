@@ -71,6 +71,7 @@ const cerrarSesion = async () => {
                             <button type="button" @click="cerrarSesion" class="w-full rounded-lg bg-red-500 px-3 py-2
                                        text-sm font-medium text-white
                                        transition-colors hover:bg-red-600 border border-red-700">
+                                <i class="pi pi-sign-out"></i>
                                 Cerrar sesión
                             </button>
                         </div>
@@ -81,6 +82,7 @@ const cerrarSesion = async () => {
             <NuxtLink v-else to="/ingreso" class="rounded-lg bg-emerald-400
                 px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 shadow-md
                 hover:bg-emerald-300 hover:ring-2 ring-emerald-600 sm:px-4 sm:text-base border border-emerald-500">
+                <i class="pi pi-sign-in"></i>
                 Ingreso Funcionario
             </NuxtLink>
 
