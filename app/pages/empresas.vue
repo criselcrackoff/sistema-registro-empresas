@@ -328,7 +328,7 @@ onMounted(async () => {
                     Total de empresas: {{ empresas.length }}
                 </p>
 
-                <!-- Formulario de registro de contacto (Modal) -->
+                <!-- Formulario de registro de interacciones (Modal) -->
                 <Teleport to="body">
                     <Transition name="modal">
                         <div v-if="mostrarFormulario && empresaSeleccionada"
@@ -342,7 +342,7 @@ onMounted(async () => {
                 p-6 md:p-8 rounded-xl shadow-2xl" style="background-color: #EAEAEA;">
                                 <div class="flex justify-between items-center gap-4 mb-6">
                                     <h2 class="font-bold text-xl">
-                                        Registro de contacto
+                                        Registro de interacciones
                                     </h2>
 
                                     <button @click="cerrarFormulario"
@@ -353,7 +353,7 @@ onMounted(async () => {
                                 </div>
 
                                 <p class="text-sm text-gray-600 mb-6">
-                                    Registrando contacto para:
+                                    Registrando interacción para:
                                     <strong>{{ empresaSeleccionada.nombre }}</strong>
                                 </p>
 
@@ -384,14 +384,18 @@ onMounted(async () => {
                                     </FormField>
 
                                     <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
-                                        <Button type="button" severity="secondary" outlined @click="cerrarFormulario">
-                                            Cancelar
-                                        </Button>
+                                        <div class=" rounded-lg border border-gray-300">    
+                                            <Button type="button" severity="secondary" outlined @click="cerrarFormulario">
+                                                Cancelar
+                                            </Button>
+                                        </div>
 
-                                        <Button type="submit" severity="success" :loading="enviando"
+                                        <div class=" rounded-lg border border-emerald-600">
+                                            <Button class="" type="submit" severity="success" :loading="enviando"
                                             :disabled="enviando">
                                             Registrar contacto
                                         </Button>
+                                        </div>
                                     </div>
 
                                     <Message v-if="mensajeEnvio" severity="success">
@@ -425,11 +429,11 @@ onMounted(async () => {
 
                                     <div>
                                         <h2 class="text-xl font-bold text-gray-800">
-                                            Registros de contacto
+                                            Registros de interacciones
                                         </h2>
 
                                         <p class="text-sm text-gray-500 mt-1">
-                                            {{ empresaRegistrosSeleccionada.nombre }}
+                                            Registros de {{ empresaRegistrosSeleccionada.nombre }}
                                         </p>
                                     </div>
 
